@@ -17,6 +17,9 @@ var params = "";
 var tweetNumber = 1;
 var nodeArgs = process.argv;
 
+
+console.log(userQuery);
+
 function tweetThis() {
     params = { screen_name: userQuery };
     //You can search for a specific user
@@ -61,6 +64,14 @@ function movieThis() {
         userQuery = "Mr.Nobody";
     }
 
+    if (nodeArgs.length > 4) {
+        for (let i = 4; i < nodeArgs.length; i++) {
+            userQuery = userQuery + "+" + nodeArgs[i];
+        }
+    } else {
+        userQuery = process.argv[3];
+    }
+
     req(`http://www.omdbapi.com/?t=${userQuery}&y=&plot=short&apikey=trilogy`, function (err, res, body) {
         if (err) throw err;
 
@@ -101,7 +112,7 @@ function whatThis() {
         var data = res.split(",");
 
         var commandChoice = data[0];
-        var queryChoice = data[1];
+        userQuery = data[1];
 
         switch (commandChoice) {
             //Twitter API
