@@ -17,9 +17,6 @@ var params = "";
 var tweetNumber = 1;
 var nodeArgs = process.argv;
 
-
-console.log(userQuery);
-
 function tweetThis() {
     params = { screen_name: userQuery };
     //You can search for a specific user
@@ -71,6 +68,7 @@ function movieThis() {
     } else {
         userQuery = process.argv[3];
     }
+    console.log(userQuery);
 
     req(`http://www.omdbapi.com/?t=${userQuery}&y=&plot=short&apikey=trilogy`, function (err, res, body) {
         if (err) throw err;
@@ -104,15 +102,55 @@ Actors: ${JSON.parse(body).Actors}\n
     });
 }
 
+function movieThat(movieSearch) {
+
+    userQuery = movieSearch;
+
+    req(`http://www.omdbapi.com/?t=${userQuery}&y=&plot=short&apikey=trilogy`, function (err, res, body) {
+        if (err) throw err;
+
+        var RTRating;
+        var IMDBRating;
+
+        if (JSON.parse(body).Ratings[0]) {
+            IMDBRating = JSON.parse(body).Ratings[0].Value;
+        } else {
+            IMDBRating = "No rating found";
+        }
+
+        if (JSON.parse(body).Ratings[1]) {
+            RTRating = JSON.parse(body).Ratings[1].Value;
+        } else {
+            RTRating = "No rating found";
+        }
+
+        console.log(`========================================\n
+Title: ${JSON.parse(body).Title}
+Release Year: ${JSON.parse(body).Year}
+IMDB Rating: ${IMDBRating}
+RT Rating: ${RTRating}
+Country of origin: ${JSON.parse(body).Country}
+Language: ${JSON.parse(body).Language}
+Plot: ${JSON.parse(body).Plot}
+Actors: ${JSON.parse(body).Actors}\n
+========================================
+        `);
+    });
+}
 //Function for do-what-it-says
 function whatThis() {
     fs.readFile("random.txt", "utf8", function (err, res) {
         if (err) throw err;
 
         var data = res.split(",");
+        var movieSearch = data[1].trim();
 
         var commandChoice = data[0];
-        userQuery = data[1];
+        if (data.length>1){
+            for(let i = 2; i < data.length; i++){
+                movieSearch += "+" + data[i].trim();
+            }
+        }
 
         switch (commandChoice) {
             //Twitter API
@@ -127,12 +165,13 @@ function whatThis() {
 
             //OMDB API
             case 'movie-this':
-                movieThis();
+                movieThat(movieSearch);
                 break;
         }
     }
     )
 };
+
 //Logic
 switch (userInput) {
 
