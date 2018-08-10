@@ -17,17 +17,20 @@ var params = "";
 var tweetNumber = 1;
 var nodeArgs = process.argv;
 var logArgs = "";
+var songSearch;
 
 
 //Loop to log functions
-if (nodeArgs.length>3){
-    logArgs = nodeArgs.slice(3).join(" ");
-}
+function logThis() {
+    if (nodeArgs.length > 3) {
+        logArgs = nodeArgs.slice(3).join(" ");
+    }
 
-//Append file
-fs.appendFile("log.txt", "Command ran: " + userInput + ",\nWith args: '" + logArgs + "'\n\n", "utf8", (err) => {
-    if (err) throw err;
-});
+    //Append file
+    fs.appendFile("log.txt", "Command ran: " + userInput + ",\nWith args: '" + logArgs + "'\n\n", "utf8", (err) => {
+        if (err) throw err;
+    });
+}
 
 //Twitter function
 function tweetThis() {
@@ -69,19 +72,44 @@ Song Url: ${res.tracks.items[0].external_urls.spotify}\n
     });
 }
 
-function movieThis() {
+function spotifyThat(whatThisQuery) {
+
+    if (userQuery === undefined) {
+        userQuery = "The Sign";
+    }
+
+    if (nodeArgs[3] === undefined) {
+        userQuery = whatThisQuery;
+    }
+
+    spotify.search({ type: 'track', query: userQuery, limit: 1 }, function (err, res) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+        console.log(`========================================\n
+Artist's Name: ${res.tracks.items[0].album.artists[0].name}
+Album Name: ${res.tracks.items[0].album.name}
+Song Name: ${res.tracks.items[0].name}
+Song Url: ${res.tracks.items[0].external_urls.spotify}\n
+========================================`
+        )
+    });
+}
+
+function movieThis(whatThisQuery) {
     if (userQuery === "") {
         userQuery = "Mr.Nobody";
     }
 
+    if (nodeArgs[3] === undefined) {
+        userQuery = whatThisQuery;
+    }
+
     if (nodeArgs.length > 4) {
-        for (let i = 4; i < nodeArgs.length; i++) {
-            userQuery = userQuery + "+" + nodeArgs[i];
-        }
+        userQuery = nodeArgs.slice(3).join("+");
     } else {
         userQuery = process.argv[3];
     }
-    console.log(userQuery);
 
     req(`http://www.omdbapi.com/?t=${userQuery}&y=&plot=short&apikey=trilogy`, function (err, res, body) {
         if (err) throw err;
@@ -115,9 +143,9 @@ Actors: ${JSON.parse(body).Actors}\n
     });
 }
 
-function movieThat(movieSearch) {
+function movieThat(whatThisQuery) {
 
-    userQuery = movieSearch;
+    userQuery = whatThisQuery;
 
     req(`http://www.omdbapi.com/?t=${userQuery}&y=&plot=short&apikey=trilogy`, function (err, res, body) {
         if (err) throw err;
@@ -156,14 +184,23 @@ function whatThis() {
         if (err) throw err;
 
         var data = res.split(",");
-        var movieSearch = data[1].trim();
+
+        if (data[1]) {
+            var whatThisQuery = data[1].trim();
+        }
+
 
         var commandChoice = data[0];
+
+
         if (data.length > 1) {
-            for (let i = 2; i < data.length; i++) {
-                movieSearch += "+" + data[i].trim();
-            }
+            logArgs = nodeArgs.slice(1).join(" ");
         }
+
+        //Append file
+        fs.appendFile("log.txt", "Command ran: " + commandChoice + ",\nWith args: '" + data.slice(1).join("") + "'\n\n", "utf8", (err) => {
+            if (err) throw err;
+        });
 
         switch (commandChoice) {
             //Twitter API
@@ -173,12 +210,19 @@ function whatThis() {
 
             //Spotify API
             case 'spotify-this-song':
-                spotifyThis();
+                spotifyThat(whatThisQuery);
+                console.log(whatThisQuery);
                 break;
 
             //OMDB API
             case 'movie-this':
-                movieThat(movieSearch);
+
+                //If data is > 1, do this
+                if (data.length > 1) {
+                    whatThisQuery = data.slice(1).join(" ");
+                }
+
+                movieThat(whatThisQuery);
                 break;
         }
     }
@@ -190,16 +234,19 @@ switch (userInput) {
 
     //Twitter API
     case 'my-tweets':
+        logThis();
         tweetThis();
         break;
 
     //Spotify API
     case 'spotify-this-song':
+        logThis();
         spotifyThis();
         break;
 
     //OMDB API
     case 'movie-this':
+        logThis();
         movieThis();
         break;
 
