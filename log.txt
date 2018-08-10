@@ -1,0 +1,15 @@
+Command ran: spotify-this-song,
+With args: 'prayer of the refugee'
+
+Command ran: movie-this,
+With args: 'treasure planet'
+
+Command ran: spotify-this-song,
+With args: 'prayer of the refugee'
+
+Command ran: movie-this,
+With args: 'treasure planet'
+
+Command ran: movie-this,
+With args: 'jaws'
+

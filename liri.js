@@ -16,7 +16,20 @@ var userQuery = process.argv[3];
 var params = "";
 var tweetNumber = 1;
 var nodeArgs = process.argv;
+var logArgs = "";
 
+
+//Loop to log functions
+if (nodeArgs.length>3){
+    logArgs = nodeArgs.slice(3).join(" ");
+}
+
+//Append file
+fs.appendFile("log.txt", "Command ran: " + userInput + ",\nWith args: '" + logArgs + "'\n\n", "utf8", (err) => {
+    if (err) throw err;
+});
+
+//Twitter function
 function tweetThis() {
     params = { screen_name: userQuery };
     //You can search for a specific user
@@ -146,8 +159,8 @@ function whatThis() {
         var movieSearch = data[1].trim();
 
         var commandChoice = data[0];
-        if (data.length>1){
-            for(let i = 2; i < data.length; i++){
+        if (data.length > 1) {
+            for (let i = 2; i < data.length; i++) {
                 movieSearch += "+" + data[i].trim();
             }
         }
