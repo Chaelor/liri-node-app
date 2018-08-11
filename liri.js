@@ -27,7 +27,7 @@ function logThis() {
     }
 
     //Append file
-    fs.appendFile("log.txt", "Command ran: " + userInput + ",\nWith args: '" + logArgs + "'\n\n", "utf8", (err) => {
+    fs.appendFile("log.txt", "\n========================\nCommand ran: " + userInput + ",\nWith args: '" + logArgs + "'\n\n", "utf8", (err) => {
         if (err) throw err;
     });
 }
@@ -62,6 +62,21 @@ function spotifyThis() {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
+
+        var name = res.tracks.items[0].album.artists[0].name,
+            album = res.tracks.items[0].album.name,
+            song = res.tracks.items[0].name,
+            url = res.tracks.items[0].external_urls.spotify;
+
+        fs.appendFile("log.txt",
+            `Name: ${name}
+Album: ${album}
+Song: ${song}
+URL: ${url}
+========================`, "utf8", (err) => {
+                if (err) throw err;
+            });
+
         console.log(`========================================\n
 Artist's Name: ${res.tracks.items[0].album.artists[0].name}
 Album Name: ${res.tracks.items[0].album.name}
@@ -86,6 +101,21 @@ function spotifyThat(whatThisQuery) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
+
+        var name = res.tracks.items[0].album.artists[0].name,
+            album = res.tracks.items[0].album.name,
+            song = res.tracks.items[0].name,
+            url = res.tracks.items[0].external_urls.spotify;
+
+        fs.appendFile("log.txt",
+            `
+Name: ${name}
+Album: ${album}
+Song: ${song}
+URL: ${url}
+========================`, "utf8", (err) => {
+                if (err) throw err;
+            });
         console.log(`========================================\n
 Artist's Name: ${res.tracks.items[0].album.artists[0].name}
 Album Name: ${res.tracks.items[0].album.name}
@@ -97,8 +127,8 @@ Song Url: ${res.tracks.items[0].external_urls.spotify}\n
 }
 
 function movieThis(whatThisQuery) {
-    if (userQuery === "") {
-        userQuery = "Mr.Nobody";
+    if (!userQuery) {
+        userQuery = "Jaws";
     }
 
     if (nodeArgs[3] === undefined) {
@@ -110,7 +140,6 @@ function movieThis(whatThisQuery) {
     } else {
         userQuery = process.argv[3];
     }
-
     req(`http://www.omdbapi.com/?t=${userQuery}&y=&plot=short&apikey=trilogy`, function (err, res, body) {
         if (err) throw err;
 
@@ -128,6 +157,19 @@ function movieThis(whatThisQuery) {
         } else {
             RTRating = "No rating found";
         }
+
+        fs.appendFile("log.txt",
+            `Title: ${JSON.parse(body).Title}
+Release Year: ${JSON.parse(body).Year}
+IMDB Rating: ${IMDBRating}
+RT Rating: ${RTRating}
+Country of origin: ${JSON.parse(body).Country}
+Language: ${JSON.parse(body).Language}
+Plot: ${JSON.parse(body).Plot}
+Actors: ${JSON.parse(body).Actors}
+========================}`, "utf8", (err) => {
+                if (err) throw err;
+            });
 
         console.log(`========================================\n
 Title: ${JSON.parse(body).Title}
@@ -165,6 +207,18 @@ function movieThat(whatThisQuery) {
             RTRating = "No rating found";
         }
 
+        fs.appendFile("log.txt",
+        `Title: ${JSON.parse(body).Title}
+Release Year: ${JSON.parse(body).Year}
+IMDB Rating: ${IMDBRating}
+RT Rating: ${RTRating}
+Country of origin: ${JSON.parse(body).Country}
+Language: ${JSON.parse(body).Language}
+Plot: ${JSON.parse(body).Plot}
+Actors: ${JSON.parse(body).Actors}
+========================}`, "utf8", (err) => {
+            if (err) throw err;
+        });
         console.log(`========================================\n
 Title: ${JSON.parse(body).Title}
 Release Year: ${JSON.parse(body).Year}

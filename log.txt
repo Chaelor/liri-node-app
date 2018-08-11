@@ -1,120 +1,32 @@
-Command ran: spotify-this-song,
-With args: 'prayer of the refugee'
 
-Command ran: movie-this,
-With args: 'treasure planet'
-
-Command ran: spotify-this-song,
-With args: 'prayer of the refugee'
-
-Command ran: movie-this,
-With args: 'treasure planet'
-
+========================
 Command ran: movie-this,
 With args: 'jaws'
 
-Command ran: movie-this,
-With args: 'treasure planet'
-
-Command ran: movie-this,
-With args: 'treasure planet'
-
-Command ran: do-what-it-says,
-With args: ''
-
-Command ran: movie-this,
-With args: 'treasure planet'
-
+Title: Jaws
+Release Year: 1975
+IMDB Rating: 8.0/10
+RT Rating: 97%
+Country of origin: USA
+Language: English
+Plot: A local sheriff, a marine biologist and an old seafarer team up to hunt down a great white shark wrecking havoc in a beach resort.
+Actors: Roy Scheider, Robert Shaw, Richard Dreyfuss, Lorraine Gary
+========================}
+========================
 Command ran: spotify-this-song,
 With args: 'prayer of the refugee'
 
-Command ran: movie-this,
-With args: ' spy  who  loved me'
-
-Command ran: movie-this,
-With args: ' spy who loved me'
-
-Command ran: movie-this,
-With args: ' spy who loved me'
-
-Command ran: movie-this,
-With args: ' spy who loved me'
-
-Command ran: movie-this,
-With args: 'spywholovedme'
-
-Command ran: movie-this,
-With args: 'spy who loved me'
-
-Command ran: movie-this,
-With args: 'spy who loved me'
-
-Command ran: movie-this,
-With args: 'jaws'
-
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
-Command ran: movie-this,
-With args: 'spy who loved me'
-
-Command ran: movie-this,
-With args: 'spy who loved me'
-
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
+Name: Rise Against
+Album: The Sufferer & The Witness
+Song: Prayer Of The Refugee
+URL: https://open.spotify.com/track/4OSbctVD37ycS0H3rwRm72
+========================
+========================
 Command ran: spotify-this-song,
 With args: ''
 
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
-Command ran: spotify-this-song,
-With args: ''
-
-Command ran: spotify-this-song,
-With args: ''
-
-Command ran: movie-this,
-With args: 'spy who loved me'
-
-Command ran: movie-this,
-With args: 'spy who loved me'
-
-Command ran: movie-this,
-With args: 'spy who loved me'
-
-Command ran: my-tweets,
-With args: ''
-
-Command ran: movie-this,
-With args: 'spy who loved me'
-
-Command ran: spotify-this-song,
-With args: ' prayer of the refugee'
-
+Name: MihTy
+Album: The Light
+Song: The Light
+URL: https://open.spotify.com/track/3oCJJksC12uFxkt3RQ7rbV
+========================
