@@ -9,4 +9,4 @@ movie-this: will get back movie details
 do-what-it-says: will read from the file "random.txt" and complete what command is specified and also search what is in the file.
 
 link:
-https://github.com/Chaelor/liri-node-app/
+<a href="https://github.com/Chaelor/liri-node-app/">Liri.js</a>
