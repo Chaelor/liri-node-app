@@ -40,6 +40,12 @@ function tweetThis() {
         if (err) throw err;
 
         for (var i in tweets) {
+            fs.appendFile("log.txt",
+`------------------------
+${tweetNumber}: ${tweets[i].text}
+------------------------\n\n` ,"utf8", (err) => {
+                if (err) throw err;
+            })
             console.log(
                 `================
 ${tweetNumber}: ${tweets[i].text}
@@ -127,19 +133,15 @@ Song Url: ${res.tracks.items[0].external_urls.spotify}\n
 }
 
 function movieThis(whatThisQuery) {
-    if (!userQuery) {
-        userQuery = "Jaws";
+    if (userQuery === undefined) {
+        userQuery = "Mr.Nobody";
     }
-
-    if (nodeArgs[3] === undefined) {
-        userQuery = whatThisQuery;
-    }
+    console.log(userQuery);
 
     if (nodeArgs.length > 4) {
         userQuery = nodeArgs.slice(3).join("+");
-    } else {
-        userQuery = process.argv[3];
     }
+
     req(`http://www.omdbapi.com/?t=${userQuery}&y=&plot=short&apikey=trilogy`, function (err, res, body) {
         if (err) throw err;
 
@@ -167,7 +169,7 @@ Country of origin: ${JSON.parse(body).Country}
 Language: ${JSON.parse(body).Language}
 Plot: ${JSON.parse(body).Plot}
 Actors: ${JSON.parse(body).Actors}
-========================}`, "utf8", (err) => {
+========================`, "utf8", (err) => {
                 if (err) throw err;
             });
 
@@ -208,7 +210,7 @@ function movieThat(whatThisQuery) {
         }
 
         fs.appendFile("log.txt",
-        `Title: ${JSON.parse(body).Title}
+            `Title: ${JSON.parse(body).Title}
 Release Year: ${JSON.parse(body).Year}
 IMDB Rating: ${IMDBRating}
 RT Rating: ${RTRating}
@@ -217,8 +219,8 @@ Language: ${JSON.parse(body).Language}
 Plot: ${JSON.parse(body).Plot}
 Actors: ${JSON.parse(body).Actors}
 ========================}`, "utf8", (err) => {
-            if (err) throw err;
-        });
+                if (err) throw err;
+            });
         console.log(`========================================\n
 Title: ${JSON.parse(body).Title}
 Release Year: ${JSON.parse(body).Year}
